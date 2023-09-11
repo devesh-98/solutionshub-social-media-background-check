@@ -60,8 +60,7 @@ In order to successfully complete this demo you need to install few tools before
 1. Clone the repository
 
 ```
-git clone https://github.com/ppoojariconfluent/real-time-insurance.git
-
+git clone https://github.com/devesh-98/solutionshub-social-media-background-check.git
 ```
 2. This demo uses Terraform  to spin up resources that are needed.
 
@@ -85,9 +84,8 @@ variable "aws_cloud_secret_key" {
 }
 
 variable "destination_s3_bucket" {
-  default = " Replace with your AWS S3 Bucket "
+  default = " Replace with your AWS S3 Destination Bucket "
 }
-
 ```
  ### Build your cloud infrastructure
 
@@ -136,7 +134,6 @@ Also change the following values in the producer.py file.
 ```
 instagram_username='' # Replace with instagram username
 s3_bucket=''          # Replace with intermediate s3 bucket which will store scraped data
-
 ```
 
 Please run the Python script using the following syntax:
@@ -168,13 +165,14 @@ If you’re interested in learning more about ksqlDB and the differences between
 3. Create a ksqlDB stream for Rekognition Output
 
    ```SQL
-  CREATE STREAM IMAGE_FILES_STREAM
-  (BUCKET STRING, S3_PATH STRING, USERNAME STRING, MODERATIONLABELS ARRAY<STRING>) 
-  WITH (KAFKA_TOPIC='success-<Enter Rekognition Lambda Sink Connector ID here>', KEY_FORMAT='JSON', VALUE_FORMAT='JSON');
+   CREATE STREAM IMAGE_FILES_STREAM (BUCKET STRING, S3_PATH STRING, USERNAME STRING, MODERATIONLABELS ARRAY<STRING>) 
+   WITH (KAFKA_TOPIC='success-<Enter Rekognition Lambda Sink Connector ID here>', KEY_FORMAT='JSON', VALUE_FORMAT='JSON'); 
    ```
-**EXPLANATION**
+   
+   
+   **EXPLANATION**
 
-A stream represents a series of messages flowing in from an input topic which has been deserialized from bytes and has a schema applied to it so the data can be processed in ksqlDB. The output of AWS Rekognition Moderation Labels for each user post is streamed into this stream.
+   A stream represents a series of messages flowing in from an input topic which has been deserialized from bytes and has a schema applied to it so the data can be processed in ksqlDB. The output of AWS Rekognition Moderation Labels for each user post is streamed into this stream.
 
 4. Create `TEXT_OUTPUT` table which will have output of captions text data .
 
@@ -223,6 +221,7 @@ A stream represents a series of messages flowing in from an input topic which ha
     INNER JOIN REKOGNITION_OUTPUT REKOGNITION_OUTPUT ON ((USER_INFO.USERNAME = REKOGNITION_OUTPUT.USERNAME))
     EMIT CHANGES;
    ```
+9. Now check the output data in Destination S3 bucket mentioned above.
 
 
 # Teardown
