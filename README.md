@@ -14,7 +14,7 @@ This demo makes use of a Python script to scrape the individuals information fro
 
 This demo is a AWS native solution to perform social media background check on individuals similarly you can just as easily use services on GCP or Azure.
 
-We are using terraform to setup the complete infrastructure including aws lambdas, iam role , confluent cloud cluster, ksqldb cluster, service accounts, etc.
+We are using terraform to setup the complete infrastructure including aws lambdas, iam role , confluent cloud cluster, ksqldb cluster, service accounts, Fully Managed AWS Lambda Sink Connectors, etc.
 For the machine learning and AI part we are leveraging the following AWS Services:
 - AWS Rekognition :- To detect whether the users post images content is inappropriate, unwanted, or offensive.
 - AWS Comprehend  :- To extract key phrases, important topics for the user posts captions 
@@ -142,6 +142,10 @@ Also change the following values in the producer.py file.
 ```
 instagram_username='' # Replace with instagram username
 s3_bucket=''          # Replace with intermediate s3 bucket which will store scraped data
+
+And inside function download_users_posts_with_periods() change the period according to need:
+SINCE=''
+UNTIL=''
 ```
 
 Please run the Python script using the following syntax:
@@ -229,7 +233,12 @@ If you’re interested in learning more about ksqlDB and the differences between
     INNER JOIN REKOGNITION_OUTPUT REKOGNITION_OUTPUT ON ((USER_INFO.USERNAME = REKOGNITION_OUTPUT.USERNAME))
     EMIT CHANGES;
    ```
-9. Now check the output data in Destination S3 bucket mentioned above.
+9.  Verify the KSQLdb Flow Diagram with below once you are done running all the above queries sucessfully.
+    <div align="center"> 
+      <img src="images/Flow.png" width =100% heigth=100%>
+    </div>
+
+10. Now check the output data in Destination S3 bucket mentioned above.
 
 
 # Teardown
@@ -243,6 +252,26 @@ You want to delete any resources that were created during the demo so you don't 
    ```bash
    terraform destroy
    ```   
+
+# Confluent Cloud Stream Governance
+
+Confluent offers data governance tools such as Stream Quality, Stream Catalog, and Stream Lineage in a package called Stream Governance. These features ensure your data is high quality, observable and discoverable. Learn more about **Stream Governance** [here](https://www.confluent.io/product/stream-governance/) and refer to the [docs](https://docs.confluent.io/cloud/current/stream-governance/overview.html) page for detailed information.
+
+1.  Navigate to https://confluent.cloud
+1.  Use the left hand-side menu and click on **Stream Lineage**.
+    Stream lineage provides a graphical UI of the end to end flow of your data. Both from the a bird’s eye view and drill-down magnification for answering questions like:
+
+    - Where did data come from?
+    - Where is it going?
+    - Where, when, and how was it transformed?
+
+In our use case, the stream lineage appears as follows: we utilize a Python script to generate events that are sent to the 3 topics user_basic_info, user_posts_description and user_post_images. This topics are triggering the Lambda Sink Connectors. Over these Lambda Sink Connectors Success topics we are creating KSQLDB stream and tables and aggregating them to check the background details of an individual.
+
+
+<div align="center">
+  <img src="images/stream_lineage.png" width =100% heigth=100%>
+</div>
+
 
 # References
 1. Confluent Cloud cluster types [page](https://docs.confluent.io/cloud/current/clusters/cluster-types.html)
