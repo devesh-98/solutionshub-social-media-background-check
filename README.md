@@ -40,6 +40,10 @@ In order to successfully complete this demo you need to install few tools before
   pip3 install boto3
   pip3 install itertools
   ```
+- In this demo we are going to deploy all our infrastructure in AWS ap-south-1 region. Therefore, update your aws region to ap-south-1 using aws configure.
+   <div align="center"> 
+      <img src="images/aws_configure.png" width =100% heigth=100%>
+   </div>
 
 ## Prerequisites
 
