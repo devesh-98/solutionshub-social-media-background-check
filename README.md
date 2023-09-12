@@ -6,11 +6,18 @@
 
 In today's digital age, the presence of social media has become an integral part of the individual's identity. As a result, employers are increasingly incorporating social media background checks into their fitment processes. The purpose of a social media background check is to gain a deeper understanding of an individual beyond their resume and interview performance. By reviewing their social media profiles, employers can assess factors such as professionalism, communication skills, cultural fit, and potential concerns that may impact their suitability for the position.
 
-This demo guides you through the process of incorporating social media background check for instagram users in real-time.
+This demo guides you through the process of incorporating social media background check for instagram users in real-time. You can just as easily use similar concepts for pulling data from Facebook, linkedin or other social platforms.
 
 ## Architecture Diagram
 
-This demo makes use of a Python script to scrape the individuals information from instagram and produce the same to Confluent Cloud. The events are then processed using AWS Comprehend, AWS Rekognition, and AWS Lambdas where the user data is checked using AWS provided Machine Learning tools and finally aggregated using KSQLDB to provide the information related to individuals background. We are sinking the data into S3 for the consumer to consume and use the data as per his need.
+This demo makes use of a Python script to scrape the individuals information from instagram and produce the same to Confluent Cloud. The events are then processed using AWS Comprehend, AWS Rekognition, and AWS Lambdas where the user data is checked using AWS provided Machine Learning tools and stream processing using ksqlDB to provide the information related to individuals background. We are sinking the data into S3 where this data can in turn be pulled by other downstream systems. 
+
+This demo is a AWS native solution to perform social media background check on individuals similarly you can just as easily use services on GCP or Azure.
+
+We are using terraform to setup the complete infrastructure including aws lambdas, iam role , confluent cloud cluster, ksqldb cluster, service accounts, etc.
+For the machine learning and AI part we are leveraging the following AWS Services:
+- AWS Rekognition :- To detect whether the users post images content is inappropriate, unwanted, or offensive.
+- AWS Comprehend  :- To extract key phrases, important topics for the user posts captions 
 
 <div align="center"> 
   <img src="images/Architecture.png" width =100% heigth=100%>
@@ -25,6 +32,7 @@ In order to successfully complete this demo you need to install few tools before
 - If you don't have a Confluent Cloud account, sign up for a free trial [here](https://www.confluent.io/confluent-cloud/tryfree).
 - Install Confluent Cloud CLI by following the instructions [here](https://docs.confluent.io/confluent-cli/current/install.html).
 - Please follow the instructions to install Terraform if it is not already installed on your system.[here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)  
+- Please create two S3 buckets one intermediate bucket where all posts will be uploaded by the Python Script and one destination bucket in where the final results will be stored.
 - This demo uses Python 3.9.13 version.
 - This demo uses python modules. You can install this module through `pip`.
   ```
@@ -147,7 +155,7 @@ python producer.py
 
 Now that you have data flowing through Confluent, you can now easily build stream processing applications using ksqlDB. You are able to continuously transform, enrich, join, and aggregate your data using simple SQL syntax. You can gain value from your data directly from Confluent in real-time. Also, ksqlDB is a fully managed service within Confluent Cloud with a 99.9% uptime SLA. You can now focus on developing services and building your data pipeline while letting Confluent manage your resources for you.
 
-This section will involve the creation of a KStreams where we calculate the premium quotes depending on the risk score in real-time using simple SQL like commands.
+This section will involve the creation of a KStreams where we are aggregating the results generrated from AWS Comprehend and AWS Rekognition for each post of user on social medie in real-time using simple SQL like commands.
 
 If you’re interested in learning more about ksqlDB and the differences between streams and tables, I recommend reading these two blogs [here](https://www.confluent.io/blog/kafka-streams-tables-part-3-event-processing-fundamentals/) and [here](https://www.confluent.io/blog/how-real-time-stream-processing-works-with-ksqldb/).
 
@@ -234,7 +242,7 @@ You want to delete any resources that were created during the demo so you don't 
 1. Run the following command to delete all resources created by Terraform
    ```bash
    terraform destroy
-   
+   ```   
 
 # References
 1. Confluent Cloud cluster types [page](https://docs.confluent.io/cloud/current/clusters/cluster-types.html)
