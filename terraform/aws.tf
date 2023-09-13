@@ -66,6 +66,31 @@ resource "aws_iam_policy_attachment" "lambda_execution_role" {
   roles      = [aws_iam_role.lambda_role.name]
 }
 
+
+### Creating S3 Bucket
+resource "aws_s3_bucket" "intermediate_bucket" {
+  bucket = "background-check-intermediate-bucket"
+}
+
+resource "aws_s3_bucket_public_access_block" "example" {
+  bucket = aws_s3_bucket.intermediate_bucket.id
+
+  block_public_acls   = false
+  block_public_policy = false
+}
+
+resource "aws_s3_bucket" "final_bucket" {
+  bucket = "background-check-final-bucket"
+}
+resource "aws_s3_bucket_public_access_block" "example2" {
+  bucket = aws_s3_bucket.final_bucket.id
+
+  block_public_acls   = false
+  block_public_policy = false
+}
+
+
+
 ### Creating the AWS Lambda Functions ###
 resource "aws_lambda_function" "rekognition_lambda" {
 filename                       = "rekognition.zip"
