@@ -158,14 +158,14 @@ python producer.py
 
 Now that you have data flowing through Confluent, you can now easily build stream processing applications using ksqlDB. You are able to continuously transform, enrich, join, and aggregate your data using simple SQL syntax. You can gain value from your data directly from Confluent in real-time. Also, ksqlDB is a fully managed service within Confluent Cloud with a 99.9% uptime SLA. You can now focus on developing services and building your data pipeline while letting Confluent manage your resources for you.
 
-This section will involve the creation of a KStreams where we are aggregating the results generrated from AWS Comprehend and AWS Rekognition for each post of user on social medie in real-time using simple SQL like commands.
+This section will involve the creation of a KStreams where we are aggregating the results generated from AWS Comprehend and AWS Rekognition for each post of user on social media in real-time using simple SQL-like commands.
 
 If you’re interested in learning more about ksqlDB and the differences between streams and tables, I recommend reading these two blogs [here](https://www.confluent.io/blog/kafka-streams-tables-part-3-event-processing-fundamentals/) and [here](https://www.confluent.io/blog/how-real-time-stream-processing-works-with-ksqldb/).
 
 1. On the navigation menu click on **ksqlDB** and step into the cluster you created during setup.
    To write streaming queries against topics, you will need to register the topics with ksqlDB as a stream or table.
 
-2. **VERY IMPORTANT** -- at the bottom of the editor, set `auto.offset.reset` to `earliest`, or enter the statement:
+2. **VERY IMPORTANT** -- At the bottom of the editor, set `auto.offset.reset` to `earliest`, or enter the statement:
 
    ```SQL
    SET 'auto.offset.reset' = 'earliest';
