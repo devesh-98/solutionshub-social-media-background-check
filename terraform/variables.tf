@@ -25,9 +25,3 @@ variable "aws_cloud_secret_key" {
   sensitive   = true
   default = ""
 }
-
-variable "destination_s3_bucket" {
-  type = string
-  default = ""
-  
-}
