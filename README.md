@@ -32,7 +32,6 @@ In order to successfully complete this demo you need to install few tools before
 - If you don't have a Confluent Cloud account, sign up for a free trial [here](https://www.confluent.io/confluent-cloud/tryfree).
 - Install Confluent Cloud CLI by following the instructions [here](https://docs.confluent.io/confluent-cli/current/install.html).
 - Please follow the instructions to install Terraform if it is not already installed on your system.[here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)  
-- Please create two S3 buckets one intermediate bucket where all posts will be uploaded by the Python Script and one destination bucket in where the final results will be stored.
 - This demo uses Python 3.9.13 version.
 - This demo uses python modules. You can install this module through `pip`.
   ```
