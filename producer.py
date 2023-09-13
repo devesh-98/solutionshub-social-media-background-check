@@ -7,7 +7,7 @@ from confluent_kafka import Producer
 import os
 
 instagram_username=''
-s3_bucket=""
+s3_bucket="background-check-intermediate-bucket"
 access_key=""
 secret_key=""
 s3 = boto3.resource('s3',region_name='ap-south-1',aws_access_key_id=access_key,aws_secret_access_key=secret_key)
