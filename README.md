@@ -95,9 +95,6 @@ variable "aws_cloud_secret_key" {
   default = " Replace with your AWS Secret Key "
 }
 
-variable "destination_s3_bucket" {
-  default = " Replace with your AWS S3 Destination Bucket "
-}
 ```
  ### Build your cloud infrastructure
 
@@ -145,7 +142,6 @@ To obtain the following details, navigate to the Clients section on the Confluen
 Also change the following values in the producer.py file.
 ```
 instagram_username='' # Replace with instagram username
-s3_bucket=''          # Replace with intermediate s3 bucket which will store scraped data
 
 And inside function download_users_posts_with_periods() change the period according to need:
 SINCE=''
