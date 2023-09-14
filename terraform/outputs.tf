@@ -13,3 +13,7 @@ output "Rekognition-Lambda-Sink-Connector-ID" {
 output "Comprehend-Lambda-Sink-Connector-ID" {
   value = confluent_connector.lambda_sink2.id
 }
+
+output "Final-Lambda-Sink-Connector-ID" {
+  value = confluent_connector.lambda_sink3.id
+}
