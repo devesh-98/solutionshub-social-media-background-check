@@ -70,6 +70,7 @@ resource "aws_iam_policy_attachment" "lambda_execution_role" {
 ### Creating S3 Bucket
 resource "aws_s3_bucket" "intermediate_bucket" {
   bucket = "background-check-intermediate-bucket"
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "example" {
@@ -81,6 +82,7 @@ resource "aws_s3_bucket_public_access_block" "example" {
 
 resource "aws_s3_bucket" "final_bucket" {
   bucket = "background-check-final-bucket"
+  force_destroy = true
 }
 resource "aws_s3_bucket_public_access_block" "example2" {
   bucket = aws_s3_bucket.final_bucket.id
