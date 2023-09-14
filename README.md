@@ -234,12 +234,18 @@ If you’re interested in learning more about ksqlDB and the differences between
     INNER JOIN REKOGNITION_OUTPUT REKOGNITION_OUTPUT ON ((USER_INFO.USERNAME = REKOGNITION_OUTPUT.USERNAME))
     EMIT CHANGES;
    ```
-9.  Verify the KSQLdb Flow Diagram with below once you are done running all the above queries sucessfully.
+9.  Verify the KSQLdb Flow Diagram with below once you are done running all the above queries successfully.
     <div align="center"> 
       <img src="images/Flow.png" width =100% heigth=100%>
     </div>
 
-10. Now check the output data in Destination S3 bucket mentioned above.
+10. Now check the background check output data in the success topic (success-<final lambda sink connector id>) of the Final Lambda Sink Connector.
+    <div align="center"> 
+      <img src="images/output.png" width =100% heigth=100%>
+    </div>
+
+11. Similarly you can check the background of as many public Instagram accounts as you want in real-time.
+    
 
 
 # Teardown
