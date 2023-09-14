@@ -140,7 +140,9 @@ To obtain the following details, navigate to the Clients section on the Confluen
 
 Also change the following values in the producer.py file.
 ```
-instagram_username='' # Replace with instagram username
+instagram_username='' # Replace with any public instagram username
+access_key='' #Replace with your AWS Access Key which has full access to S3
+secret_key='' #Replace with your AWS Secret Key
 
 And inside function download_users_posts_with_periods() change the period according to need:
 SINCE=''
