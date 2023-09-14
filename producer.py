@@ -6,7 +6,7 @@ import json
 from confluent_kafka import Producer
 import os
 
-instagram_username=''
+instagram_username='confluent_inc'
 s3_bucket="background-check-intermediate-bucket"
 access_key=""
 secret_key=""
