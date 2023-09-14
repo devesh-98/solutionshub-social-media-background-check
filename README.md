@@ -120,6 +120,11 @@ variable "aws_cloud_secret_key" {
 
    > **Note:** Read the `main.tf` configuration file [to see what will be created](./terraform/main.tf).
 
+5. Once everything is deployed successfully you will be able to see the further required connector id's as follows:
+   <div align="center"> 
+        <img src="images/th.png" width =100% heigth=100%>
+   </div>
+
 
  # Demo
 ## Execute Python Script by providing Instagram Username to check Background
@@ -244,7 +249,7 @@ If you’re interested in learning more about ksqlDB and the differences between
       <img src="images/final.png" width =100% heigth=100%>
     </div>
 
-11. Similarly you can check the background of as many public Instagram accounts as you want in real-time.
+11. Similarly you can check the background of as many public Instagram accounts as you want in real-time by just changing the username in producer python code.
     
 
 
