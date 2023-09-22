@@ -145,7 +145,7 @@ To obtain the following details, navigate to the Clients section on the Confluen
 
 Also change the following values in the producer.py file.
 ```
-instagram_username='' # Replace with any public instagram username
+instagram_username='confluent_inc' # Replace with any public instagram username
 access_key='' #Replace with your AWS Access Key which has full access to S3
 secret_key='' #Replace with your AWS Secret Key
 
@@ -244,26 +244,13 @@ If you’re interested in learning more about ksqlDB and the differences between
       <img src="images/Flow.png" width =100% heigth=100%>
     </div>
 
-10. Now check the background check output data in the success topic (success- final_lambda_sink_connector_id) of the Final Lambda Sink Connector.
+10. Now check the background check output data in the success topic (success- final_lambda_sink_connector_id) of the Final Lambda Sink Connector. The same is also getting sinked into S3 Bucket from where user can use data for further analysis.
     <div align="center"> 
       <img src="images/final.png" width =100% heigth=100%>
     </div>
 
-11. Similarly you can check the background of as many public Instagram accounts as you want in real-time by just changing the username in producer python code.
+11. Similarly you can check the background of as many public Instagram accounts as you want in real-time by just changing the username in producer python code. We have mentioned 'confluent_inc' as of now.
     
-
-
-# Teardown
-
-You want to delete any resources that were created during the demo so you don't incur additional charges.
-
-
-## Infrastructure
-
-1. Run the following command to delete all resources created by Terraform
-   ```bash
-   terraform destroy
-   ```   
 
 # Confluent Cloud Stream Governance
 
@@ -283,6 +270,19 @@ In our use case, the stream lineage appears as follows: we utilize a Python scri
 <div align="center">
   <img src="images/stream_lineage.png" width =100% heigth=100%>
 </div>
+
+
+# Teardown
+
+You want to delete any resources that were created during the demo so you don't incur additional charges.
+
+
+## Infrastructure
+
+1. Run the following command to delete all resources created by Terraform
+   ```bash
+   terraform destroy
+   ```   
 
 
 # References
